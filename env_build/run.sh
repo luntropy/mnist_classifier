@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker run --gpus all -p 5000:5000 mnist-classifier-app
+docker run --rm --gpus all -e API_PORT=$API_PORT -p $API_PORT:$API_PORT mnist-classifier-app

@@ -1,7 +1,9 @@
+import os
 import numpy as np
 import tensorflow as tf
 from flask import Flask
 
+API_PORT = int(os.getenv('API_PORT', '5000'))
 SAVED_MODELS = './saved_models'
 
 def create_app(config_filename = None):
@@ -25,4 +27,4 @@ def predict():
     return f'Prediction: {prediction}'
 
 if __name__ == '__main__':
-    app.run(port = 5000, host = '0.0.0.0')
+    app.run(port = API_PORT, host = '0.0.0.0')
