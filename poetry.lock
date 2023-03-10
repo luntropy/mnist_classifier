@@ -1157,6 +1157,17 @@ secure = ["certifi", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "ipaddress", "p
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
+name = "uuid"
+version = "1.30"
+description = "UUID object and generation functions (Python 2.3 or higher)"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "uuid-1.30.tar.gz", hash = "sha256:1f87cc004ac5120466f36c5beae48b4c48cc411968eed0eaecd3da82aa96193f"},
+]
+
+[[package]]
 name = "virtualenv"
 version = "20.20.0"
 description = "Virtual Python Environment builder"
@@ -1314,4 +1325,4 @@ testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8, <=3.10.6"
-content-hash = "982464eb586d879f69e021a4fb60315be7b2d95bd0842aae57ba972949d879ce"
+content-hash = "552da0b57fd0e528bc43222c3f9124f335dbf699e53fab1334f3bc67172e6ec8"

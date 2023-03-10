@@ -1,8 +1,10 @@
 import os
+import uuid
 import numpy as np
 import tensorflow as tf
 from flask import Flask
 
+INSTANCE_ID = uuid.uuid4().hex
 API_PORT = int(os.getenv('API_PORT', '5000'))
 SAVED_MODELS = './saved_models'
 
@@ -24,7 +26,7 @@ def predict():
     prediction = model.predict(image_test)
     prediction = np.argmax(prediction)
 
-    return f'Prediction: {prediction}'
+    return f'Instance ID: {INSTANCE_ID} <br>Prediction: {prediction}'
 
 if __name__ == '__main__':
     app.run(port = API_PORT, host = '0.0.0.0')
