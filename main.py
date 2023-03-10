@@ -1,3 +1,6 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
 import tensorflow as tf
 from tensorflow.keras.layers import Dense, Flatten, Conv2D
 from tensorflow.keras import Model
@@ -8,6 +11,8 @@ class MyModel(Model):
     def __init__(self):
         super(MyModel, self).__init__()
         self.image_shape = (28, 28, 1)
+        self.model_location = 'saved_models'
+
         self.conv1 = Conv2D(32, 3, activation='relu')
         self.flatten = Flatten()
         self.d1 = Dense(128, activation='relu')
@@ -91,3 +96,5 @@ if __name__ == '__main__':
             f'Test Loss: {test_loss.result()}, '
             f'Test Accuracy: {test_accuracy.result() * 100}'
         )
+
+    tf.keras.models.save_model(model, f'{model.model_location}')

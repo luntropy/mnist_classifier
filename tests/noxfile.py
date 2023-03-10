@@ -1,5 +1,5 @@
 import nox
 
-@nox.session(name = 'model_test.py')
+@nox.session(name = 'Test Project')
 def tests(session):
     session.run('pytest')
