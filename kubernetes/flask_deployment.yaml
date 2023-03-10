@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mnist-classifier-app
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mnist-classifier-app
+  template:
+    metadata:
+      labels:
+        app: mnist-classifier-app
+
+    spec:
+      containers:
+        - name: flask-app-container
+          image: mnist-classifier-app
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5000
+              protocol: TCP
