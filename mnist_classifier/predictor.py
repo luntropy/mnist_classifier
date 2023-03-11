@@ -6,7 +6,7 @@ from .utils import Config
 class Inferrer:
     def __init__(self, config):
         self.config = Config.from_json(config)
-        self.image_shape = (self.config.data.image_height, self.config.data.image_width, self.config.data.image_channels)
+        self.image_shape = self.config.data.image_shape
 
         self.model_location = self.config.train.model_save_path
         self.model = tf.keras.models.load_model(os.path.join(self.model_location, 'model.h5'))

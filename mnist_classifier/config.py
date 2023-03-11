@@ -2,9 +2,7 @@
 
 CFG = {
     "data": {
-        "image_height": 28,
-        "image_width": 28,
-        "image_channels": 1
+        "image_shape": [28, 28, 1]
     },
     "train": {
         "model_save_path": "saved_models",

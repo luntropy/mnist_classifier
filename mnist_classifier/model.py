@@ -25,7 +25,7 @@ class MNISTClassifier:
 
         self.loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True)
 
-        self.image_shape = (self.config.data.image_height, self.config.data.image_width, self.config.data.image_channels)
+        self.image_shape = self.config.data.image_shape
         self.train_dataset = []
         self.test_dataset = []
         self.validation_dataset = []
