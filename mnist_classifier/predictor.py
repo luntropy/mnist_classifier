@@ -21,6 +21,5 @@ class Inferrer:
         tensor_image = self.preprocess(tensor_image)
 
         predictions = self.model.predict(tensor_image)
-        predictions = tf.math.argmax(predictions, axis = 1).numpy()
 
-        return { 'predictions': predictions }
+        return predictions
