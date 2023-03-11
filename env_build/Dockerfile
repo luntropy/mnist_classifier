@@ -11,7 +11,7 @@ RUN apt update || true
 RUN apt install -y python3-pip
 
 RUN pip3 install --upgrade pip
-RUN pip3 install poetry
+RUN pip3 install poetry==1.4.0
 
 RUN poetry install
 
