@@ -1,4 +1,5 @@
 import tensorflow as tf
+
 from .utils import Config
 from .tester import Tester
 from .trainer import Trainer
@@ -16,6 +17,8 @@ class MNISTClassifier:
         self.output_shape = self.config.model.output_shape
 
         self.dataset = None
+        self.validation_split = self.config.train.validation_split
+
         self.batch_size = self.config.train.batch_size
         self.buffer_size = self.config.train.buffer_size
         self.epoches = self.config.train.epoches
@@ -25,12 +28,13 @@ class MNISTClassifier:
         self.image_shape = (self.config.data.image_height, self.config.data.image_width, self.config.data.image_channels)
         self.train_dataset = []
         self.test_dataset = []
+        self.validation_dataset = []
 
     def load_data(self):
         """Loads and Preprocess data """
 
         self.dataset = DataLoader().load_data()
-        self.train_dataset, self.test_dataset = DataLoader.preprocess_data(self.dataset, self.batch_size, self.buffer_size)
+        self.train_dataset, self.validation_dataset, self.test_dataset = DataLoader.preprocess_data(self.dataset, self.validation_split, self.batch_size, self.buffer_size)
 
     def build(self):
         """Builds the Keras model"""
@@ -38,9 +42,9 @@ class MNISTClassifier:
         inputs = tf.keras.layers.Input(shape = self.input_shape)
         x = inputs
 
-        x = tf.keras.layers.Conv2D(32, 3, activation = 'relu')(x)
+        x = tf.keras.layers.Conv2D(self.config.model.conv2d_units, self.config.model.conv2d_kernel, activation = self.config.model.conv2d_activation)(x)
         x = tf.keras.layers.Flatten()(x)
-        x = tf.keras.layers.Dense(128, activation = 'relu')(x)
+        x = tf.keras.layers.Dense(self.config.model.dense_units, activation = self.config.model.dense_activation)(x)
         x = tf.keras.layers.Dense(self.output_shape)(x)
 
         self.model = tf.keras.Model(inputs = inputs, outputs = x)
@@ -48,12 +52,15 @@ class MNISTClassifier:
     def train(self):
         """Compiles and trains the model"""
 
-        optimizer = tf.keras.optimizers.Adam()
+        optimizer = tf.keras.optimizers.Adam(learning_rate = self.config.train.learning_rate)
         train_loss = tf.keras.metrics.Mean(name = 'train_loss')
         train_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name = 'train_accuracy')
 
+        val_loss = tf.keras.metrics.Mean(name = 'val_loss')
+        val_accuracy = tf.keras.metrics.SparseCategoricalAccuracy(name = 'val_accuracy')
+
         self.model.compile(optimizer = optimizer, loss = self.loss, metrics = [train_loss, train_accuracy])
-        trainer = Trainer(self.model, self.train_dataset, self.model_save_path, self.loss, optimizer, train_loss, train_accuracy, self.epoches)
+        trainer = Trainer(self.model, self.train_dataset, self.validation_dataset, self.model_save_path, self.loss, optimizer, train_loss, train_accuracy, val_loss, val_accuracy, self.epoches)
         trainer.train()
 
     def evaluate(self):
