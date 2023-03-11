@@ -5,6 +5,7 @@ import tensorflow as tf
 from flask import Flask
 
 INSTANCE_ID = uuid.uuid4().hex
+HOST = '0.0.0.0'
 API_PORT = int(os.getenv('API_PORT', '5000'))
 SAVED_MODELS = './saved_models'
 
@@ -29,4 +30,4 @@ def predict():
     return f'Instance ID: {INSTANCE_ID} <br>Prediction: {prediction}'
 
 if __name__ == '__main__':
-    app.run(port = API_PORT, host = '0.0.0.0')
+    app.run(host = HOST, port = API_PORT)
