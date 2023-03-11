@@ -1,0 +1,33 @@
+openapi: 3.0.0
+info:
+  title: MNIST Classifier Service
+  version: 1.0.0
+  contact: {}
+  description: Service which classifies handwritten digits
+paths:
+  /predict:
+    post:
+      operationId: service.predict
+      tags:
+        - Service
+      summary: Classifies handwritten digits
+      description: ''
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - images
+              properties:
+                images:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: {}

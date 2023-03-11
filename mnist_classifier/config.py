@@ -10,6 +10,7 @@ CFG = {
         "buffer_size": 10000,
         "validation_split": 0.1,
         "epoches": 3,
+        "from_logits": False,
         "learning_rate": 0.001,
         "optimizer": {
             "type": "adam"
@@ -23,6 +24,7 @@ CFG = {
         "conv2d_kernel": 3,
         "conv2d_activation": "relu",
         "dense_units": 128,
-        "dense_activation": 'relu'
+        "dense_activation": "relu",
+        "output_activation": "softmax"
     }
 }

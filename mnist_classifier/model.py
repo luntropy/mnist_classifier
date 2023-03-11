@@ -23,7 +23,7 @@ class MNISTClassifier:
         self.buffer_size = self.config.train.buffer_size
         self.epoches = self.config.train.epoches
 
-        self.loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = True)
+        self.loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits = self.config.train.from_logits)
 
         self.image_shape = self.config.data.image_shape
         self.train_dataset = []
@@ -45,7 +45,7 @@ class MNISTClassifier:
         x = tf.keras.layers.Conv2D(self.config.model.conv2d_units, self.config.model.conv2d_kernel, activation = self.config.model.conv2d_activation)(x)
         x = tf.keras.layers.Flatten()(x)
         x = tf.keras.layers.Dense(self.config.model.dense_units, activation = self.config.model.dense_activation)(x)
-        x = tf.keras.layers.Dense(self.output_shape)(x)
+        x = tf.keras.layers.Dense(self.output_shape, activation = self.config.model.output_activation)(x)
 
         self.model = tf.keras.Model(inputs = inputs, outputs = x)
 
