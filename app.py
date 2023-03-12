@@ -9,8 +9,13 @@ MAX_BUFFER_SIZE = 524288000
 
 OPTIONS = { 'swagger_path': swagger_ui_3_path, 'swagger_url': '/' }
 
-app = connexion.App(__name__, specification_dir = 'spec/', server = 'tornado', options = OPTIONS)
-app.add_api('service.yaml')
+def create_app():
+    app = connexion.App(__name__, specification_dir = 'spec/', server = 'tornado', options = OPTIONS)
+    app.add_api('service.yaml')
+
+    return app
 
 if __name__ == '__main__':
+    app = create_app()
+
     app.run(host = HOST, port = API_PORT, max_buffer_size = MAX_BUFFER_SIZE)

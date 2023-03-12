@@ -20,7 +20,6 @@ class Trainer:
 
         self.epoches = epoches
 
-        # self.model_save_path = 'saved_models/'
         self.model_save_path = model_save_path
 
     @tf.function

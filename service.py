@@ -31,4 +31,4 @@ def predict():
 
     response = { 'instance_id': str(INSTANCE_ID), 'predictions': results }
 
-    return response
+    return response, 200
